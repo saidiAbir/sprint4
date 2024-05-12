@@ -1,0 +1,50 @@
+<!DOCTYPE html> 
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">      
+<link rel="stylesheet" type="text/css" 
+href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" /> 
+<head> 
+<meta charset="utf-8"> 
+<title>Ajout des Bijoux</title> 
+</head> 
+<body> 
+<div th:replace="template"></div>  
+<div class="container mt-5"> 
+<div class="card"> 
+  <div class="card-header"> 
+   Modifier des Bijoux 
+  </div> 
+   <div class="card-body"> 
+ <form th:action="@{saveBijoux}" method="post"> 
+  <div class="form-group"> 
+   <label class="control-label" hidden>ID Bijoux :</label>  
+       <input type="hidden" name="idBijoux" class="form-control" 
+th:value="${bijoux.idBijoux}"  /> 
+  </div>      
+  <div class="form-group"> 
+   <label class="control-label">Nom Bijoux :</label>  
+    <input type="text" name="nomBijoux" class="form-control" 
+th:value="${bijoux.nomBijoux}"  /> 
+    <span th:errors= ${bijoux.nomBijoux} class="text-danger"> </span>   
+  </div> 
+  <div class="form-group"> 
+   <label class="control-label">Prix Bijoux :</label>  
+    <input type="text" name="prix" class="form-control" 
+th:value="${bijoux.prix}" /> 
+   <span th:errors=${bijoux.prix} class="text-danger"> </span>  
+  </div> 
+  <div class="form-group"> 
+   <label class="control-label">date création :</label>  
+   <input type="date" name="dateCreation" class="form-control"  
+th:value="${bijoux.dateCreation}"/> 
+  <span th:errors=${bijoux.dateCreation} class="text-danger"> </span>  
+  </div> 
+  <div> 
+  <button type="submit" class="btn btn-primary">Valider</button> 
+  </div> 
+  </form> 
+  </div> 
+  </div> 
+</div> 
+</body> 
+</html> 

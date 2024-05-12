@@ -1,0 +1,67 @@
+<!DOCTYPE html> 
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" > 
+<link rel="stylesheet" 
+type="text/css"href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" /> 
+<head> 
+<meta charset="utf-8"> 
+<title>Ajout des Bijoux</title> 
+</head> 
+<body> 
+<div th:replace="template"></div>  
+<div class="container mt-5"> 
+	<div class="card"> 
+	<div class="card-header" th:if="${mode=='new'}"> Ajout des Bijoux </div> 
+	<div class="card-header" th:if="${mode=='edit'}">Modification des bijoux </div> 
+	<div class="card-body"> 
+	<form th:action="@{saveBijoux}" method="post"> 
+		<input type="hidden" name="page" class="form-control" th:value="${page}"  /> 
+		<input 	type="hidden"  name="size" class="form-control" th:value="${size}"  />      
+	<div class="form-group"> 
+	<label class="control-label" hidden>ID Bijoux :</label>  
+	<input type="hidden" name="idBijoux" class="form-control" 
+	th:value="${bijoux.idBijoux}"  /> 
+	</div> 
+	 <div class="form-group"> 
+	    <label class="control-label">Nom Bijoux :</label>  
+	       <input type="text" name="nomBijoux" class="form-control" /> 
+	  <span th:errors= ${bijoux.nomBijoux} class="text-danger"> </span>   
+	  </div> 
+	  <div class="form-group"> 
+	  <label class="control-label">Prix Bijoux :</label>  
+	  <input type="text" name="prix" class="form-control" /> 
+	  <span th:errors=${bijoux.prix} class="text-danger"> </span>  
+	 </div> 
+	 <div class="form-group"> 
+	  <label class="control-label">date création :</label>  
+	  <input type="date" name="dateCreation" class="form-control" /> 
+	   <span th:errors=${bijoux.dateCreation} class="text-danger"> </span>  
+	 </div> 
+	 <div class="form-group"> 
+	  <label class="control-label">Marque :</label>  
+	  <select name="marque" class="form-control" 
+	  th:value="${bijoux.marque.idMar}"  
+	  th:if="${!#strings.isEmpty(bijoux.marque)}" >  
+	  <option th:each="m:${marques}" th:if="${mode=='edit'}"  
+	          th:value="${m.idMar}" th:text="${m.nomMar}" 
+	     th:selected="${ m.idMar==bijoux.marque.idMar}"> 
+	  </option>     
+	   
+	 </select> 
+	  <!-- s'il s'agit d'un ajout (mode==new) ou d'une modification d'un produit ayant une catégorie null --> 
+	  <select name="marque" class="form-control" 
+	  th:if="${#strings.isEmpty(bijoux.marque)}"> 
+	  <option th:each="m:${marques}" th:value="${m.idMar}"  
+	     th:text="${m.nomMar}"> 
+	  </option> 
+	  </select>  
+	  </div>  
+	 <div> 
+	 <button type="submit" class="btn btn-primary">Ajouter</button> 
+	  </div> 
+	 </form>  
+</div> 
+</div> 
+</div> 
+</body> 
+</html>
